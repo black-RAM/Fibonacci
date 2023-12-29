@@ -1,14 +1,8 @@
 import "./style.css";
 
-interface BaseCases {
-  [key: number]: number[]
-}
-
-const bases: BaseCases = {0: [], 1: [0], 2: [0, 1]}
-
-function fibonacci(count: number): number[] {
-  if (bases[count]) {
-    return bases[count]
+function fibonacci(count: number): bigint[] {
+  if (count == 2) {
+    return [BigInt(0), BigInt(1)]
   }
 
   let fibonacciArray = fibonacci(count - 1)
