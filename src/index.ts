@@ -1,26 +1,25 @@
 import "./style.css";
 
-// memoization to optimize fibonacci sequence generation
-interface Memo {
+interface BaseCases {
   [key: number]: number[]
 }
 
-function fibonacci(count: number, memo: Memo = {0: [], 1: [0], 2: [0, 1]}): number[] {
-  if (memo[count]) {
-    return memo[count]
+const bases: BaseCases = {0: [], 1: [0], 2: [0, 1]}
+
+function fibonacci(count: number): number[] {
+  if (bases[count]) {
+    return bases[count]
   }
 
-  let fibonacciArray = fibonacci(count - 1, memo)
+  let fibonacciArray = fibonacci(count - 1)
   
   fibonacciArray.push(
     fibonacciArray[fibonacciArray.length - 1] +
     fibonacciArray[fibonacciArray.length - 2]
   )
-
-  memo[count] = fibonacciArray;
   
   return fibonacciArray;
 }
 
-const fibonacciSequence = fibonacci(20000)
+const fibonacciSequence = fibonacci(10000)
 console.log(fibonacciSequence)
