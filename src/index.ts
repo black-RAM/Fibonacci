@@ -1,3 +1,4 @@
+import renderSpiral from "./display";
 import "./style.css";
 
 function fibonacci(count: number): bigint[] {
@@ -15,5 +16,6 @@ function fibonacci(count: number): bigint[] {
   return fibonacciArray;
 }
 
-const fibonacciSequence = fibonacci(10000)
-console.log(fibonacciSequence)
+const fibonacciSequence = fibonacci(10)
+
+renderSpiral(fibonacciSequence)
