@@ -16,6 +16,17 @@ function fibonacci(count: number): bigint[] {
   return fibonacciArray;
 }
 
-const fibonacciSequence = fibonacci(8)
+const slider = document.querySelector<HTMLInputElement>("input[type='range']")
+const output = document.getElementsByTagName("span")[0]
 
-renderSpiral(fibonacciSequence)
+if (slider && output) {
+  output.innerText = `${+slider.value-1}`
+  let fibonacciSequence = fibonacci(+slider.value)
+  renderSpiral(fibonacciSequence)
+
+  slider.addEventListener("input", () => {
+    fibonacciSequence = fibonacci(+slider.value)
+    renderSpiral(fibonacciSequence)
+    output.innerText = `${+slider.value-1}`
+  })
+}

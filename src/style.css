@@ -1,8 +1,7 @@
 body {
   margin: 0;
-}
-
-svg{
-  height: 99vh;
-  width: 100vw;
+  font-family: 'Courier New', Courier, monospace;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
 }

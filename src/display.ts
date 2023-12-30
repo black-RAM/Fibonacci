@@ -7,12 +7,10 @@ function shiftTiles(
   newX: number, 
   newY: number, 
   side: number, 
-  currentTile: tile, 
   allTiles:tile[],
-  upper: number,
   lower = 0
   ) {
-
+    const currentTile = allTiles[allTiles.length - 1]
     const sameX = (tile: tile) => newX <= +tile.attr("x") && +tile.attr("x") < newX + side 
     const sameY = (tile: tile) => newY <= +tile.attr("y") && +tile.attr("y") < newY + side
 
@@ -40,20 +38,17 @@ function shiftTiles(
 function renderSpiral(sequence: bigint[]) {
   console.log(sequence)
 
-  const vw = window.innerWidth
-  const vh = window.innerHeight
-  const svg = d3.select("body").append("svg")
+  d3.select("body").select("svg").remove()
+
+  const frameSize = d3.min([window.innerWidth,  window.innerHeight]) || 2
+  const svg = d3.select("body").append("svg").attr("width", frameSize).attr("height", frameSize)
   
   let x = 0
   let y = 0
   let direction = 1
 
-  const lastTerm =  Number(sequence[sequence.length - 1])
-  const sum = d3.sum(sequence.map((term, index) => Number(term)))
-
-  const scale = d3.scaleLinear()
-    .domain([0, sequence.length % 7 == 0 ? sum - lastTerm : sum])
-    .range([0, d3.min([vw, vh]) || 2])
+  const sum = d3.sum(sequence.map(term => Number(term)))
+  const scale = d3.scaleLinear().domain([0, sum]).range([0, frameSize])
 
   const tiles: tile[] = []
 
@@ -70,7 +65,7 @@ function renderSpiral(sequence: bigint[]) {
 
     tiles.push(tile)
 
-    shiftTiles(x, y, side, tile, tiles, lastTerm)
+    shiftTiles(x, y, side, tiles)
 
     switch (direction) {
       case 1: // right
@@ -95,8 +90,8 @@ function renderSpiral(sequence: bigint[]) {
   }
   
   // grid lines
-  const xLines = d3.axisTop(scale).tickSize(-vw).ticks(sum)
-  const yLines = d3.axisLeft(scale).tickSize(-vh).ticks(sum)
+  const xLines = d3.axisTop(scale).tickSize(-frameSize).ticks(sum)
+  const yLines = d3.axisLeft(scale).tickSize(-frameSize).ticks(sum)
 
   svg.append("g").call(xLines)
   svg.append("g").call(yLines)
