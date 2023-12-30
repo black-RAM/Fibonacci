@@ -16,6 +16,6 @@ function fibonacci(count: number): bigint[] {
   return fibonacciArray;
 }
 
-const fibonacciSequence = fibonacci(10)
+const fibonacciSequence = fibonacci(3)
 
 renderSpiral(fibonacciSequence)

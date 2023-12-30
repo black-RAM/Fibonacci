@@ -2,6 +2,7 @@
   "compilerOptions": {
     "strict": true,
     "forceConsistentCasingInFileNames": true,
+    "allowSyntheticDefaultImports": true,
     "target": "es2017",
     "module": "es2022",
     "outDir": "./dist",
