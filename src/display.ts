@@ -69,6 +69,7 @@ function renderSpiral(sequence: bigint[]) {
 
     switch (direction) {
       case 1: // right
+        y = 0
         x = side
         direction = 2
         break
@@ -83,6 +84,7 @@ function renderSpiral(sequence: bigint[]) {
         direction = 4
         break
       case 4: // up
+        x = 0
         y = 0 - side
         direction = 1
         break
