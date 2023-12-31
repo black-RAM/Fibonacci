@@ -1,6 +1,7 @@
 import randomColor from "randomcolor"
 import * as d3 from "d3"
 
+const colors = randomColor({count: 101, luminosity: "light"})
 type tile =  d3.Selection<SVGRectElement, unknown, HTMLElement, any>
 
 function shiftTiles(
@@ -53,7 +54,6 @@ function renderSpiral(sequence: bigint[]) {
   const tiles: tile[] = []
 
   for (let i = 0; i < sequence.length; i++) {
-    const color = randomColor()
     const side = scale(Number(sequence[i]))
 
     const tile = svg.append("rect")
@@ -61,7 +61,7 @@ function renderSpiral(sequence: bigint[]) {
       .attr("y", y)
       .attr("width", side)
       .attr("height", side)
-      .attr("fill", color)
+      .attr("fill", colors[i])
 
     tiles.push(tile)
 
@@ -90,13 +90,6 @@ function renderSpiral(sequence: bigint[]) {
         break
     }
   }
-  
-  // grid lines
-  const xLines = d3.axisTop(scale).tickSize(-frameSize).ticks(sum)
-  const yLines = d3.axisLeft(scale).tickSize(-frameSize).ticks(sum)
-
-  svg.append("g").call(xLines)
-  svg.append("g").call(yLines)
 }
 
 export default renderSpiral
